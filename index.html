@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PancasilaKu - Petualangan Nilai-Nilai Pancasila Kelas VII SMP (Sila 1-5)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hide { display: none !important; }
+        html { scroll-behavior: smooth; }
+        .fade-in { animation: fadeIn 0.4s ease-in-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-gradient-to-r from-emerald-800 via-teal-800 to-cyan-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('beranda')">
+                <div class="w-10 h-10 rounded-xl bg-amber-400 text-slate-900 flex items-center justify-center font-black text-xl shadow-inner">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg tracking-wide">Pancasila<span class="text-amber-400">Ku</span></h1>
+                    <p class="text-xs text-emerald-200">Fase D • Kelas VII SMP (Sila 1-5)</p>
+                </div>
+            </div>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden xl:flex items-center space-x-1">
+                <button onclick="switchTab('beranda')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10 active-tab" data-target="beranda"><i class="fa-solid fa-house mr-1"></i> Beranda</button>
+                <button onclick="switchTab('tujuan')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="tujuan"><i class="fa-solid fa-bullseye mr-1"></i> Tujuan</button>
+                <button onclick="switchTab('materi')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="materi"><i class="fa-solid fa-book-open mr-1"></i> Materi</button>
+                <button onclick="switchTab('eksplorasi')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="eksplorasi"><i class="fa-solid fa-magnifying-glass mr-1"></i> Eksplorasi</button>
+                <button onclick="switchTab('praktik')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="praktik"><i class="fa-solid fa-flask mr-1"></i> Praktik</button>
+                <button onclick="switchTab('game')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="game"><i class="fa-solid fa-gamepad mr-1"></i> Game</button>
+                <button onclick="switchTab('lkpd')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="lkpd"><i class="fa-solid fa-file-pen mr-1"></i> LKPD</button>
+                <button onclick="switchTab('kuis')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="kuis"><i class="fa-solid fa-puzzle-piece mr-1"></i> Kuis</button>
+                <button onclick="switchTab('kesimpulan')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="kesimpulan"><i class="fa-solid fa-book-bookmark mr-1"></i> Kesimpulan</button>
+                <button onclick="switchTab('refleksi')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="refleksi"><i class="fa-solid fa-lightbulb mr-1"></i> Refleksi</button>
+                <button onclick="switchTab('progress')" class="nav-btn px-2.5 py-2 rounded-lg text-xs font-medium transition hover:bg-white/10" data-target="progress"><i class="fa-solid fa-chart-line mr-1"></i> Progress</button>
+            </nav>
+
+            <!-- Mobile / Tablet Hamburger Button -->
+            <div class="flex items-center space-x-2 xl:hidden">
+                <button onclick="toggleMobileMenu()" class="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden xl:hidden bg-teal-900 border-t border-teal-800 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchTab('beranda'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-house mr-2"></i> Beranda</button>
+            <button onclick="switchTab('tujuan'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-bullseye mr-2"></i> Tujuan Pembelajaran</button>
+            <button onclick="switchTab('materi'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-book-open mr-2"></i> Materi Interaktif (Sila 1-5)</button>
+            <button onclick="switchTab('eksplorasi'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-magnifying-glass mr-2"></i> Aktivitas Eksplorasi</button>
+            <button onclick="switchTab('praktik'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-flask mr-2"></i> Studi Kasus & Praktik</button>
+            <button onclick="switchTab('game'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-gamepad mr-2"></i> Mini Game Edukatif</button>
+            <button onclick="switchTab('lkpd'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-file-pen mr-2"></i> Lembar Kerja (LKPD)</button>
+            <button onclick="switchTab('kuis'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-puzzle-piece mr-2"></i> Kuis Adaptif</button>
+            <button onclick="switchTab('kesimpulan'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-book-bookmark mr-2"></i> Kesimpulan</button>
+            <button onclick="switchTab('refleksi'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-lightbulb mr-2"></i> Refleksi</button>
+            <button onclick="switchTab('progress'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-sm font-medium hover:bg-teal-800"><i class="fa-solid fa-chart-line mr-2"></i> Progress & Sertifikat</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ================= 1. BERANDA ================= -->
+        <section id="tab-beranda" class="tab-content fade-in space-y-8">
+            <div class="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-teal-700 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="relative z-10 max-w-2xl space-y-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-400 text-slate-900 shadow">
+                        <i class="fa-solid fa-star mr-1"></i> Modul Interaktif Lengkap Pancasila (Sila 1-5)
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        Wujudkan Karakter Luhur Melalui <span class="text-amber-300">Pancasila</span>
+                    </h2>
+                    <p class="text-emerald-100 text-base sm:text-lg leading-relaxed">
+                        Selamat datang di media pembelajaran interaktif Pendidikan Pancasila Fase D Kelas VII. Mari selami makna, nilai, dan praktik nyata dari kelima sila Pancasila dalam kehidupan sehari-hari di rumah dan sekolah!
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4">
+                        <button onclick="switchTab('tujuan'); updateProgress('beranda');" class="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold rounded-xl shadow-lg transition transform hover:-translate-y-0.5 flex items-center">
+                            Mulai Belajar Sekarang <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                        <button onclick="switchTab('materi'); updateProgress('beranda');" class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl border border-white/20 transition flex items-center">
+                            Eksplorasi Materi <i class="fa-solid fa-book-open ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Overview Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg mb-3 font-bold">1</div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1">Ketuhanan</h3>
+                    <p class="text-xs text-slate-600">Nilai spiritual, toleransi beragama & kebebasan beribadah.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-600 flex items-center justify-center text-lg mb-3 font-bold">2</div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1">Kemanusiaan</h3>
+                    <p class="text-xs text-slate-600">Kesetaraan martabat, empati & peduli sesama tanpa diskriminasi.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center text-lg mb-3 font-bold">3</div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1">Persatuan</h3>
+                    <p class="text-xs text-slate-600">Cinta tanah air, nasionalisme & gotong royong bangsa.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg mb-3 font-bold">4</div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1">Kerakyatan</h3>
+                    <p class="text-xs text-slate-600">Musyawarah mufakat, demokrasi & menghargai pendapat.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3 font-bold">5</div>
+                    <h3 class="font-bold text-base text-slate-900 mb-1">Keadilan</h3>
+                    <p class="text-xs text-slate-600">Keseimbangan hak dan kewajiban serta kerja keras.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 2. TUJUAN PEMBELAJARAN ================= -->
+        <section id="tab-tujuan" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-teal-600 text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Tujuan Pembelajaran</h2>
+                        <p class="text-sm text-slate-500">Fase D • Mata Pelajaran Pendidikan Pancasila (Sila 1 s.d. 5)</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-start p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                        <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5 mr-4">1</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 mb-1">Analisis Makna Kelima Sila</h4>
+                            <p class="text-sm text-slate-700">Peserta didik dapat menganalisis makna nilai yang terkandung dalam sila Pancasila sila pertama, kedua, ketiga, keempat, dan kelima dengan tepat dan mendalam.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start p-4 rounded-xl bg-teal-50 border border-teal-100">
+                        <div class="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5 mr-4">2</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 mb-1">Identifikasi Penerapan Nyata (Sila 1 - 5)</h4>
+                            <p class="text-sm text-slate-700">Peserta didik dapat mengidentifikasi contoh penerapan sila pertama, kedua, ketiga, keempat, dan kelima dalam kehidupan sehari-hari di lingkungan keluarga dan sekolah.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('materi'); updateProgress('tujuan');" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center">
+                        Lanjut ke Materi Interaktif <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. MATERI INTERAKTIF ================= -->
+        <section id="tab-materi" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-6 border-b border-slate-100 gap-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Modul Teori Sila 1 - 5</span>
+                        <h2 class="text-2xl font-bold text-slate-900 mt-2">Penerapan Nilai-Nilai Pancasila</h2>
+                    </div>
+                    <!-- Sub-tabs for material (Sila 1 to 5) -->
+                    <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl">
+                        <button onclick="switchMateriTab('sila1')" id="btn-sila1" class="px-3 py-2 rounded-lg text-xs font-bold bg-white text-emerald-700 shadow-sm transition">Sila 1</button>
+                        <button onclick="switchMateriTab('sila2')" id="btn-sila2" class="px-3 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">Sila 2</button>
+                        <button onclick="switchMateriTab('sila3')" id="btn-sila3" class="px-3 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">Sila 3</button>
+                        <button onclick="switchMateriTab('sila4')" id="btn-sila4" class="px-3 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">Sila 4</button>
+                        <button onclick="switchMateriTab('sila5')" id="btn-sila5" class="px-3 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition">Sila 5</button>
+                    </div>
+                </div>
+
+                <!-- Sila 1 Content -->
+                <div id="materi-sila1" class="py-6 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        <div class="md:col-span-2 space-y-4">
+                            <h3 class="text-xl font-bold text-emerald-800 flex items-center">
+                                <i class="fa-solid fa-star-and-crescent mr-2 text-amber-500"></i> Sila 1: Ketuhanan Yang Maha Esa
+                            </h3>
+                            <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+                                Fondasi spiritual bangsa Indonesia. Lambang bintang bersudut lima melambangkan cahaya rohani. Menegaskan kepercayaan dan ketakwaan kepada Tuhan Yang Maha Esa serta kebebasan beribadah.
+                            </p>
+                            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100 space-y-2">
+                                <h4 class="font-bold text-emerald-900 text-sm"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Contoh Penerapan:</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                    <li>Berdoa sebelum dan sesudah belajar di sekolah atau rumah.</li>
+                                    <li>Menghormati teman yang sedang menjalankan ibadah puasa/hari besar agama.</li>
+                                    <li>Tidak memaksakan agama kepada orang lain.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-emerald-50 to-teal-100 p-6 rounded-2xl border border-emerald-200 text-center">
+                            <div class="text-5xl text-emerald-700 mb-3"><i class="fa-solid fa-place-of-worship"></i></div>
+                            <h4 class="font-bold text-slate-900 mb-1">Nilai Spiritual</h4>
+                            <p class="text-xs text-slate-600">Toleransi & kerukunan antarumat beragama.</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between pt-4 border-t border-slate-100">
+                        <span class="text-xs text-slate-400">1 dari 5 Sila</span>
+                        <button onclick="switchMateriTab('sila2')" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-sm transition flex items-center">
+                            Lanjut Sila 2 <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sila 2 Content -->
+                <div id="materi-sila2" class="py-6 space-y-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        <div class="md:col-span-2 space-y-4">
+                            <h3 class="text-xl font-bold text-teal-800 flex items-center">
+                                <i class="fa-solid fa-hand-holding-heart mr-2 text-teal-500"></i> Sila 2: Kemanusiaan yang Adil & Beradab
+                            </h3>
+                            <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+                                Dilambangkan rantai emas. Mengakui kedudukan manusia yang sederajat serta memiliki hak dan kewajiban yang sama tanpa diskriminasi suku, ras, atau agama.
+                            </p>
+                            <div class="bg-teal-50 p-4 rounded-xl border border-teal-100 space-y-2">
+                                <h4 class="font-bold text-teal-900 text-sm"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Contoh Penerapan:</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                    <li>Membantu teman yang jatuh atau mengalami kesusahan di sekolah.</li>
+                                    <li>Berbicara santun kepada guru, orang tua, dan semua orang.</li>
+                                    <li>Mengembangkan sikap tenggang rasa.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-teal-50 to-emerald-100 p-6 rounded-2xl border border-teal-200 text-center">
+                            <div class="text-5xl text-teal-700 mb-3"><i class="fa-solid fa-users"></i></div>
+                            <h4 class="font-bold text-slate-900 mb-1">Nilai Kemanusiaan</h4>
+                            <p class="text-xs text-slate-600">Empati & kesetaraan sesama manusia.</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between pt-4 border-t border-slate-100">
+                        <button onclick="switchMateriTab('sila1')" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl text-sm transition">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Sila 1
+                        </button>
+                        <button onclick="switchMateriTab('sila3')" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-xl text-sm transition flex items-center">
+                            Lanjut Sila 3 <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sila 3 Content -->
+                <div id="materi-sila3" class="py-6 space-y-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        <div class="md:col-span-2 space-y-4">
+                            <h3 class="text-xl font-bold text-cyan-800 flex items-center">
+                                <i class="fa-solid fa-tree mr-2 text-cyan-600"></i> Sila 3: Persatuan Indonesia
+                            </h3>
+                            <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+                                Dilambangkan pohon beringin. Menempatkan persatuan, kesatuan, serta kepentingan bangsa dan negara di atas kepentingan pribadi atau golongan.
+                            </p>
+                            <div class="bg-cyan-50 p-4 rounded-xl border border-cyan-100 space-y-2">
+                                <h4 class="font-bold text-cyan-900 text-sm"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Contoh Penerapan:</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                    <li>Mengikuti upacara bendera dengan khidmat.</li>
+                                    <li>Bangga menggunakan produk buatan dalam negeri.</li>
+                                    <li>Berteman dengan siapa saja tanpa membedakan suku asal.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-cyan-50 to-teal-100 p-6 rounded-2xl border border-cyan-200 text-center">
+                            <div class="text-5xl text-cyan-700 mb-3"><i class="fa-solid fa-flag"></i></div>
+                            <h4 class="font-bold text-slate-900 mb-1">Nilai Persatuan</h4>
+                            <p class="text-xs text-slate-600">Cinta tanah air & nasionalisme.</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between pt-4 border-t border-slate-100">
+                        <button onclick="switchMateriTab('sila2')" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl text-sm transition">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Sila 2
+                        </button>
+                        <button onclick="switchMateriTab('sila4')" class="px-5 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white font-semibold rounded-xl text-sm transition flex items-center">
+                            Lanjut Sila 4 <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sila 4 Content -->
+                <div id="materi-sila4" class="py-6 space-y-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        <div class="md:col-span-2 space-y-4">
+                            <h3 class="text-xl font-bold text-indigo-800 flex items-center">
+                                <i class="fa-solid fa-comments mr-2 text-indigo-600"></i> Sila 4: Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan
+                            </h3>
+                            <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+                                Dilambangkan kepala banteng. Mengutamakan musyawarah mufakat dalam mengambil keputusan untuk kepentingan bersama serta menghargai pendapat orang lain.
+                            </p>
+                            <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100 space-y-2">
+                                <h4 class="font-bold text-indigo-900 text-sm"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Contoh Penerapan:</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                    <li>Memilih ketua kelas melalui musyawarah atau pemungutan suara secara jujur.</li>
+                                    <li>Aktif menyampaikan pendapat dalam diskusi kelompok kelas dengan santun.</li>
+                                    <li>Menerima hasil keputusan musyawarah dengan lapang dada.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-indigo-50 to-blue-100 p-6 rounded-2xl border border-indigo-200 text-center">
+                            <div class="text-5xl text-indigo-700 mb-3"><i class="fa-solid fa-people-roof"></i></div>
+                            <h4 class="font-bold text-slate-900 mb-1">Nilai Demokrasi</h4>
+                            <p class="text-xs text-slate-600">Musyawarah mufakat & menghargai pendapat.</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between pt-4 border-t border-slate-100">
+                        <button onclick="switchMateriTab('sila3')" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl text-sm transition">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Sila 3
+                        </button>
+                        <button onclick="switchMateriTab('sila5')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-sm transition flex items-center">
+                            Lanjut Sila 5 <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sila 5 Content -->
+                <div id="materi-sila5" class="py-6 space-y-6 hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        <div class="md:col-span-2 space-y-4">
+                            <h3 class="text-xl font-bold text-amber-800 flex items-center">
+                                <i class="fa-solid fa-scale-balanced mr-2 text-amber-600"></i> Sila 5: Keadilan Sosial bagi Seluruh Rakyat Indonesia
+                            </h3>
+                            <p class="text-slate-700 leading-relaxed text-sm sm:text-base">
+                                Dilambangkan padi dan kapas. Mengembangkan perbuatan luhur yang mencerminkan sikap dan suasana kekeluargaan serta keseimbangan antara hak dan kewajiban.
+                            </p>
+                            <div class="bg-amber-50 p-4 rounded-xl border border-amber-100 space-y-2">
+                                <h4 class="font-bold text-amber-900 text-sm"><i class="fa-solid fa-lightbulb text-amber-500 mr-1"></i> Contoh Penerapan:</h4>
+                                <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                    <li>Berlaku adil kepada semua teman tanpa pilih kasih.</li>
+                                    <li>Melaksanakan kewajiban piket kelas dengan penuh tanggung jawab.</li>
+                                    <li>Menghargai hasil karya orang lain.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-100 p-6 rounded-2xl border border-amber-200 text-center">
+                            <div class="text-5xl text-amber-700 mb-3"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+                            <h4 class="font-bold text-slate-900 mb-1">Nilai Keadilan</h4>
+                            <p class="text-xs text-slate-600">Keseimbangan hak & kewajiban.</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between pt-4 border-t border-slate-100">
+                        <button onclick="switchMateriTab('sila4')" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl text-sm transition">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Sila 4
+                        </button>
+                        <button onclick="switchTab('eksplorasi'); updateProgress('materi');" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-xl text-sm transition flex items-center">
+                            Lanjut ke Eksplorasi <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= 4. AKTIVITAS EKSPLORASI ================= -->
+        <section id="tab-eksplorasi" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500 text-slate-900 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Aktivitas Eksplorasi Kontekstual (Sila 1 - 5)</h2>
+                        <p class="text-sm text-slate-500">Tentukan Sila Berapa Perilaku Berikut Berada!</p>
+                    </div>
+                </div>
+
+                <!-- Case 1 -->
+                <div id="eksp-card-1" class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-4 mb-6">
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Kasus 1 dari 3</span>
+                    <p class="text-slate-800 font-medium text-base">
+                        "Kelompok belajar kelas VII merundingkan pembagian tugas piket kebersihan kelas dengan mendengarkan usul dari seluruh anggota."
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2">
+                        <button onclick="checkEksplorasi(1, 1)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 1</button>
+                        <button onclick="checkEksplorasi(1, 2)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 2</button>
+                        <button onclick="checkEksplorasi(1, 3)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 3</button>
+                        <button onclick="checkEksplorasi(1, 4)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 4</button>
+                        <button onclick="checkEksplorasi(1, 5)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 5</button>
+                    </div>
+                    <div id="eksp-fb-1" class="hidden p-3 rounded-xl text-sm font-medium"></div>
+                </div>
+
+                <!-- Case 2 -->
+                <div id="eksp-card-2" class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-4 mb-6 hidden">
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Kasus 2 dari 3</span>
+                    <p class="text-slate-800 font-medium text-base">
+                        "Siswa SMP membeli produk kerajinan tangan lokal buatan UMKM Indonesia demi mendukung perekonomian bangsa."
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2">
+                        <button onclick="checkEksplorasi(2, 1)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 1</button>
+                        <button onclick="checkEksplorasi(2, 2)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 2</button>
+                        <button onclick="checkEksplorasi(2, 3)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 3</button>
+                        <button onclick="checkEksplorasi(2, 4)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 4</button>
+                        <button onclick="checkEksplorasi(2, 5)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 5</button>
+                    </div>
+                    <div id="eksp-fb-2" class="hidden p-3 rounded-xl text-sm font-medium"></div>
+                </div>
+
+                <!-- Case 3 -->
+                <div id="eksp-card-3" class="bg-slate-50 rounded-2xl p-6 border border-slate-200 space-y-4 mb-6 hidden">
+                    <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">Kasus 3 dari 3</span>
+                    <p class="text-slate-800 font-medium text-base">
+                        "Berlaku adil dengan membagi tugas kelompok secara merata dan tidak membebankan tugas hanya pada satu anak."
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2">
+                        <button onclick="checkEksplorasi(3, 1)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 1</button>
+                        <button onclick="checkEksplorasi(3, 2)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 2</button>
+                        <button onclick="checkEksplorasi(3, 3)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 3</button>
+                        <button onclick="checkEksplorasi(3, 4)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 4</button>
+                        <button onclick="checkEksplorasi(3, 5)" class="p-3 bg-white hover:bg-slate-100 border rounded-xl text-xs font-bold text-slate-700">Sila 5</button>
+                    </div>
+                    <div id="eksp-fb-3" class="hidden p-3 rounded-xl text-sm font-medium"></div>
+                </div>
+
+                <div id="eksp-next" class="hidden flex justify-end">
+                    <button onclick="switchTab('praktik'); updateProgress('eksplorasi');" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center">
+                        Lanjut ke Studi Kasus & Praktik <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 5. LABORATORIUM MAYA / PRAKTIK ================= -->
+        <section id="tab-praktik" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-teal-600 text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Studi Kasus & Simulasi Praktik Nyata</h2>
+                        <p class="text-sm text-slate-500">Pilih tindakan terbaik untuk menyelesaikan dilema sosial sehari-hari!</p>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-teal-900 to-emerald-900 text-white p-6 rounded-2xl mb-6">
+                    <h3 class="font-bold text-lg mb-2"><i class="fa-solid fa-clipboard-question text-amber-400 mr-2"></i> Skenario Dilema:</h3>
+                    <p id="sim-scenario" class="text-sm sm:text-base text-teal-100 leading-relaxed">
+                        Saat pemilihan ketua OSIS di sekolah, terjadi perbedaan pendapat yang cukup tajam antara dua kubu pendukung. Apa langkah terbaik yang mencerminkan nilai Sila ke-4 (Kerakyatan)?
+                    </p>
+                </div>
+
+                <div id="sim-options" class="space-y-3 mb-6">
+                    <button onclick="selectSimOption(0)" class="sim-opt w-full p-4 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left text-sm font-semibold text-slate-800 transition flex items-center justify-between">
+                        <span>Memaksakan pendapat kelompok sendiri agar langsung disetujui tanpa voting.</span>
+                        <i class="fa-regular fa-circle text-slate-400"></i>
+                    </button>
+                    <button onclick="selectSimOption(1)" class="sim-opt w-full p-4 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left text-sm font-semibold text-slate-800 transition flex items-center justify-between">
+                        <span>Mengadakan musyawarah bersama secara terbuka dan menghargai seluruh usulan calon.</span>
+                        <i class="fa-regular fa-circle text-slate-400"></i>
+                    </button>
+                    <button onclick="selectSimOption(2)" class="sim-opt w-full p-4 rounded-xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50 text-left text-sm font-semibold text-slate-800 transition flex items-center justify-between">
+                        <span>Keluar dari ruang rapat dan menolak hasil keputusan bersama.</span>
+                        <i class="fa-regular fa-circle text-slate-400"></i>
+                    </button>
+                </div>
+
+                <div id="sim-feedback" class="hidden p-4 rounded-xl text-sm font-medium mb-6"></div>
+
+                <div class="flex justify-end">
+                    <button id="sim-next-btn" onclick="switchTab('game'); updateProgress('praktik');" class="hidden px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center">
+                        Lanjut ke Mini Game <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 6. MINI GAME EDUKATIF ================= -->
+        <section id="tab-game" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500 text-slate-900 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900">Mini Game: Pilah Kartu Sila 1 - 5</h2>
+                            <p class="text-sm text-slate-500">Klasifikasikan kartu perilaku ke keranjang sila yang tepat!</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-amber-50 px-4 py-2 rounded-xl border border-amber-200">
+                        <span class="text-xs font-bold text-amber-800">Skor Game:</span>
+                        <span id="game-score" class="font-extrabold text-amber-900 text-lg">0</span>
+                    </div>
+                </div>
+
+                <div id="game-area" class="py-6 space-y-6">
+                    <div class="bg-slate-100 p-6 rounded-2xl text-center border border-slate-200">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Kartu Perilaku Saat Ini</span>
+                        <p id="game-card-text" class="text-lg font-bold text-slate-800 mt-2">Mengikuti upacara bendera hari Senin dengan khidmat.</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                        <button onclick="handleGameChoice(1)" class="p-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow font-bold text-sm">Sila 1</button>
+                        <button onclick="handleGameChoice(2)" class="p-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl shadow font-bold text-sm">Sila 2</button>
+                        <button onclick="handleGameChoice(3)" class="p-4 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl shadow font-bold text-sm">Sila 3</button>
+                        <button onclick="handleGameChoice(4)" class="p-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow font-bold text-sm">Sila 4</button>
+                        <button onclick="handleGameChoice(5)" class="p-4 bg-amber-600 hover:bg-amber-700 text-white rounded-xl shadow font-bold text-sm">Sila 5</button>
+                    </div>
+                    <div id="game-feedback" class="text-center font-medium text-sm"></div>
+                </div>
+
+                <div id="game-complete" class="hidden py-8 text-center space-y-4">
+                    <div class="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900">Luar Biasa! Mini Game Selesai</h3>
+                    <p class="text-slate-600 text-sm">Kamu berhasil menguasai pemilahan nilai kelima sila Pancasila dengan sangat baik.</p>
+                    <button onclick="switchTab('lkpd'); updateProgress('game');" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition inline-flex items-center">
+                        Lanjut ke Lembar Kerja (LKPD) <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 7. LEMBAR KERJA INTERAKTIF (LKPD) ================= -->
+        <section id="tab-lkpd" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Lembar Kerja Peserta Didik (LKPD)</h2>
+                        <p class="text-sm text-slate-500">Refleksi Penerapan Sila 1 sampai 5 di Sekolah & Keluarga</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">1. Tuliskan contoh penerapan Sila ke-3 (Persatuan) di lingkungan sekolah!</label>
+                        <textarea id="lkpd-ans-1" rows="2" class="w-full p-4 rounded-xl border border-slate-200 text-sm" placeholder="Contoh: Berteman dengan siapa saja tanpa membedakan suku..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">2. Tuliskan contoh penerapan Sila ke-4 (Kerakyatan) dalam diskusi kelompok!</label>
+                        <textarea id="lkpd-ans-2" rows="2" class="w-full p-4 rounded-xl border border-slate-200 text-sm" placeholder="Contoh: Menerima hasil keputusan musyawarah dengan lapang dada..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">3. Tuliskan contoh penerapan Sila ke-5 (Keadilan) di rumah!</label>
+                        <textarea id="lkpd-ans-3" rows="2" class="w-full p-4 rounded-xl border border-slate-200 text-sm" placeholder="Contoh: Melaksanakan tugas rumah dengan penuh tanggung jawab..."></textarea>
+                    </div>
+
+                    <div class="pt-2 flex justify-end">
+                        <button onclick="submitLkpd()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center">
+                            Simpan LKPD <i class="fa-solid fa-check ml-2"></i>
+                        </button>
+                    </div>
+                    <div id="lkpd-feedback" class="hidden p-4 rounded-xl bg-emerald-50 text-emerald-800 text-sm font-medium border border-emerald-100"></div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="switchTab('kuis'); updateProgress('lkpd');" class="px-6 py-3 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-xl shadow transition flex items-center">
+                        Lanjut ke Kuis Adaptif <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 8. KUIS ADAPTIF ================= -->
+        <section id="tab-kuis" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100">
+                <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-lg bg-teal-600 text-white flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-puzzle-piece"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900">Kuis Evaluasi Adaptif (Sila 1 - 5)</h2>
+                            <p class="text-sm text-slate-500">Uji Pemahaman Komprehensif</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span id="quiz-counter" class="text-xs font-bold text-slate-500">Soal 1 dari 5</span>
+                    </div>
+                </div>
+
+                <div id="quiz-container" class="py-6 space-y-6">
+                    <h3 id="quiz-question" class="text-lg font-bold text-slate-900">Pertanyaan...</h3>
+                    <div id="quiz-options" class="space-y-3"></div>
+                    <div id="quiz-feedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+                </div>
+
+                <div id="quiz-result" class="hidden py-8 text-center space-y-4">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-4xl mx-auto shadow-inner">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900">Kuis Selesai!</h3>
+                    <div id="final-score-display" class="text-4xl font-black text-emerald-600">0/100</div>
+                    <p id="quiz-badge-msg" class="text-xs text-slate-500 font-medium"></p>
+                    <div class="pt-4 flex flex-wrap justify-center gap-4">
+                        <button onclick="resetQuiz()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold rounded-xl text-sm transition">Ulangi Kuis</button>
+                        <button onclick="switchTab('kesimpulan'); updateProgress('kuis');" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center">
+                            Lanjut ke Kesimpulan <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 9. KESIMPULAN ================= -->
+        <section id="tab-kesimpulan" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Kesimpulan Pembelajaran</h2>
+                        <p class="text-sm text-slate-500">Rangkuman Nilai Pancasila Sila ke-1 s.d. 5</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-4">
+                    <ul class="list-disc list-inside text-sm text-slate-700 space-y-2">
+                        <li><strong>Sila 1 (Ketuhanan):</strong> Menjunjung tinggi nilai spiritual, keimanan, dan toleransi antarumat beragama.</li>
+                        <li><strong>Sila 2 (Kemanusiaan):</strong> Mengakui kesetaraan martabat manusia dan sikap saling menyayangi.</li>
+                        <li><strong>Sila 3 (Persatuan):</strong> Mengutamakan persatuan bangsa, cinta tanah air, dan nasionalisme.</li>
+                        <li><strong>Sila 4 (Kerakyatan):</strong> Mengutamakan musyawarah mufakat dan menghargai pendapat orang lain.</li>
+                        <li><strong>Sila 5 (Keadilan):</strong> Menjaga keseimbangan hak dan kewajiban serta berlaku adil tanpa pilih kasih.</li>
+                    </ul>
+                </div>
+
+                <div class="flex justify-end">
+                    <button onclick="switchTab('refleksi'); updateProgress('kesimpulan');" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center">
+                        Lanjut ke Refleksi <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 10. REFLEKSI ================= -->
+        <section id="tab-refleksi" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-6">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500 text-slate-900 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Refleksi Pribadi</h2>
+                        <p class="text-sm text-slate-500">Renungkan pengalaman belajar hari ini</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <label class="block text-sm font-bold text-slate-700">Tuliskan satu hal baru atau komitmen nyata yang akan kamu lakukan untuk mengamalkan Pancasila di sekolah!</label>
+                    <textarea id="refleksi-input" rows="3" class="w-full p-4 rounded-xl border border-slate-200 text-sm" placeholder="Komitmen saya: Lebih aktif menjaga kerukunan dan menghormati pendapat teman..."></textarea>
+                    <div class="flex justify-end">
+                        <button onclick="submitRefleksi()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition">Simpan Refleksi</button>
+                    </div>
+                    <div id="refleksi-feedback" class="hidden p-4 rounded-xl bg-teal-50 text-teal-800 text-sm font-medium border border-teal-100"></div>
+                </div>
+
+                <div class="pt-4 flex justify-end border-t border-slate-100">
+                    <button onclick="switchTab('progress'); updateProgress('refleksi');" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow transition flex items-center">
+                        Lihat Progress & Sertifikat <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 11. PROGRESS & SERTIFIKAT ================= -->
+        <section id="tab-progress" class="tab-content hide fade-in space-y-6">
+            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-8">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-teal-600 text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Progress Belajar & Penghargaan (Sila 1-5)</h2>
+                        <p class="text-sm text-slate-500">Pantau pencapaian belajar kamu hingga tuntas</p>
+                    </div>
+                </div>
+
+                <!-- Progress Bar Card -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-slate-800 text-sm">Tingkat Penyelesaian Modul</span>
+                        <span id="progress-percentage" class="font-black text-emerald-600 text-lg">20%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                        <div id="progress-bar-fill" class="bg-emerald-600 h-3 rounded-full transition-all duration-500" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <!-- Badges Grid -->
+                <div class="space-y-4">
+                    <h3 class="font-bold text-slate-900 text-lg">Lencana Penghargaan (<span id="badge-count">1</span>/5)</h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+                        <div id="badge-beranda" class="p-4 rounded-2xl border bg-emerald-50 border-emerald-300 text-center space-y-2">
+                            <div class="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl mx-auto shadow"><i class="fa-solid fa-house"></i></div>
+                            <h4 class="font-bold text-xs text-slate-900">Penjelajah</h4>
+                            <span class="text-[10px] text-emerald-700 font-semibold block">Terbuka</span>
+                        </div>
+                        <div id="badge-materi" class="p-4 rounded-2xl border bg-slate-50 border-slate-200 text-center space-y-2 opacity-60">
+                            <div class="w-12 h-12 bg-slate-300 text-slate-600 rounded-full flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-book-open"></i></div>
+                            <h4 class="font-bold text-xs text-slate-900">Master Sila 1-5</h4>
+                            <span class="text-[10px] text-slate-500 font-semibold block">Terkunci</span>
+                        </div>
+                        <div id="badge-game" class="p-4 rounded-2xl border bg-slate-50 border-slate-200 text-center space-y-2 opacity-60">
+                            <div class="w-12 h-12 bg-slate-300 text-slate-600 rounded-full flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-gamepad"></i></div>
+                            <h4 class="font-bold text-xs text-slate-900">Pilah Pintar</h4>
+                            <span class="text-[10px] text-slate-500 font-semibold block">Terkunci</span>
+                        </div>
+                        <div id="badge-kuis" class="p-4 rounded-2xl border bg-slate-50 border-slate-200 text-center space-y-2 opacity-60">
+                            <div class="w-12 h-12 bg-slate-300 text-slate-600 rounded-full flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-puzzle-piece"></i></div>
+                            <h4 class="font-bold text-xs text-slate-900">Juara Kuis</h4>
+                            <span class="text-[10px] text-slate-500 font-semibold block">Terkunci</span>
+                        </div>
+                        <div id="badge-sertifikat" class="p-4 rounded-2xl border bg-slate-50 border-slate-200 text-center space-y-2 opacity-60">
+                            <div class="w-12 h-12 bg-slate-300 text-slate-600 rounded-full flex items-center justify-center text-xl mx-auto"><i class="fa-solid fa-award"></i></div>
+                            <h4 class="font-bold text-xs text-slate-900">Pancasila Sejati</h4>
+                            <span class="text-[10px] text-slate-500 font-semibold block">Terkunci</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate Section -->
+                <div class="bg-gradient-to-r from-amber-50 via-emerald-50 to-teal-50 p-8 rounded-3xl border-2 border-dashed border-amber-300 text-center space-y-4">
+                    <div class="w-16 h-16 bg-amber-400 text-slate-900 rounded-full flex items-center justify-center text-3xl mx-auto shadow">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-slate-900">Sertifikat Kelulusan Modul</h3>
+                    <p class="text-slate-600 text-sm max-w-md mx-auto">Selesaikan seluruh menu untuk membuka sertifikat penghargaan resmi!</p>
+                    <div>
+                        <button onclick="generateCertificate()" id="cert-btn" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-xl shadow transition opacity-50 cursor-not-allowed" disabled>
+                            Cetak Sertifikat Digital <i class="fa-solid fa-print ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs space-y-2">
+            <p>PancasilaKu • Media Pembelajaran Interaktif Pendidikan Pancasila Kelas VII SMP Fase D (Sila 1-5)</p>
+        </div>
+    </footer>
+
+    <script>
+        let completedTabs = {
+            beranda: true,
+            tujuan: false,
+            materi: false,
+            eksplorasi: false,
+            praktik: false,
+            game: false,
+            lkpd: false,
+            kuis: false,
+            kesimpulan: false,
+            refleksi: false,
+            progress: false
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hide'));
+            const target = document.getElementById('tab-' + tabId);
+            if (target) {
+                target.classList.remove('hide');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            updateProgress(tabId);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function switchMateriTab(sila) {
+            ['sila1','sila2','sila3','sila4','sila5'].forEach(s => {
+                document.getElementById('materi-' + s).classList.add('hidden');
+                document.getElementById('btn-' + s).className = "px-3 py-2 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition";
+            });
+            document.getElementById('materi-' + sila).classList.remove('hidden');
+            document.getElementById('btn-' + sila).className = "px-3 py-2 rounded-lg text-xs font-bold bg-white text-emerald-700 shadow-sm transition";
+        }
+
+        // Eksplorasi logic
+        function checkEksplorasi(caseNum, ans) {
+            const fb = document.getElementById(`eksp-fb-${caseNum}`);
+            fb.classList.remove('hidden');
+            const correctAnswers = { 1: 4, 2: 3, 3: 5 };
+            if (ans === correctAnswers[caseNum]) {
+                fb.className = "p-3 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+                fb.innerHTML = `<i class="fa-solid fa-check-circle mr-1"></i> Tepat sekali! Perilaku ini mencerminkan Sila ke-${ans}.`;
+                if (caseNum < 3) {
+                    document.getElementById(`eksp-card-${caseNum + 1}`).classList.remove('hidden');
+                } else {
+                    document.getElementById('eksp-next').classList.remove('hidden');
+                }
+            } else {
+                fb.className = "p-3 rounded-xl text-sm font-medium bg-rose-50 text-rose-800 border border-rose-200";
+                fb.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Kurang tepat. Coba tinjau kembali makna tiap sila.`;
+            }
+        }
+
+        // Simulasi Praktik logic
+        function selectSimOption(idx) {
+            const opts = document.querySelectorAll('.sim-opt');
+            opts.forEach((o, i) => {
+                if (i === idx) {
+                    o.classList.add('border-teal-600', 'bg-teal-50');
+                    o.querySelector('i').className = "fa-solid fa-circle-check text-teal-600";
+                } else {
+                    o.classList.remove('border-teal-600', 'bg-teal-50');
+                    o.querySelector('i').className = "fa-regular fa-circle text-slate-400";
+                }
+            });
+            const fb = document.getElementById('sim-feedback');
+            fb.classList.remove('hidden');
+            if (idx === 1) {
+                fb.className = "p-4 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+                fb.innerHTML = `<strong>Tepat!</strong> Mengadakan musyawarah terbuka menghargai pendapat sesuai Sila ke-4.`;
+                document.getElementById('sim-next-btn').classList.remove('hidden');
+            } else {
+                fb.className = "p-4 rounded-xl text-sm font-medium bg-rose-50 text-rose-800 border border-rose-200";
+                fb.innerHTML = `Kurang tepat. Tindakan memaksakan kehendak atau walk-out bertentangan dengan musyawarah mufakat.`;
+            }
+        }
+
+        // Mini Game Logic
+        const gameCards = [
+            { text: "Mengikuti upacara bendera hari Senin dengan khidmat.", answer: 3 },
+            { text: "Menolong korban bencana alam tanpa memandang suku.", answer: 2 },
+            { text: "Berdoa sebelum memulai kegiatan belajar di kelas.", answer: 1 },
+            { text: "Melaksanakan piket kelas dengan penuh tanggung jawab.", answer: 5 },
+            { text: "Mengambil keputusan melalui musyawarah mufakat.", answer: 4 }
+        ];
+        let currentGameIndex = 0;
+        let gameScoreVal = 0;
+
+        function handleGameChoice(choice) {
+            const card = gameCards[currentGameIndex];
+            const fb = document.getElementById('game-feedback');
+            fb.classList.remove('hidden');
+            if (choice === card.answer) {
+                gameScoreVal += 20;
+                document.getElementById('game-score').textContent = gameScoreVal;
+                fb.className = "text-emerald-600 font-bold mt-2";
+                fb.textContent = "Benar!";
+            } else {
+                fb.className = "text-rose-600 font-bold mt-2";
+                fb.textContent = `Kurang tepat. Perilaku ini masuk ke Sila ke-${card.answer}.`;
+            }
+            currentGameIndex++;
+            setTimeout(() => {
+                fb.classList.add('hidden');
+                if (currentGameIndex < gameCards.length) {
+                    document.getElementById('game-card-text').textContent = gameCards[currentGameIndex].text;
+                } else {
+                    document.getElementById('game-area').classList.add('hidden');
+                    document.getElementById('game-complete').classList.remove('hidden');
+                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                }
+            }, 1200);
+        }
+
+        function submitLkpd() {
+            const fb = document.getElementById('lkpd-feedback');
+            fb.classList.remove('hidden');
+            fb.textContent = "Berhasil! Jawaban LKPD Anda telah direkam dengan baik.";
+        }
+
+        // Quiz Adaptif Data & Logic (Sila 1-5)
+        const quizData = [
+            {
+                question: "Lambang pohon beringin pada burung Garuda Pancasila merupakan simbol dari sila ke...",
+                options: ["Sila Pertama", "Sila Kedua", "Sila Ketiga", "Sila Keempat"],
+                answer: 2,
+                explanation: "Pohon beringin adalah simbol Sila ke-3 (Persatuan Indonesia)."
+            },
+            {
+                question: "Sikap tidak memaksakan kehendak kepada orang lain dalam musyawarah adalah pengamalan sila...",
+                options: ["Sila Pertama", "Sila Kedua", "Sila Keempat", "Sila Kelima"],
+                answer: 2,
+                explanation: "Musyawarah mufakat merupakan inti dari Sila Keempat."
+            },
+            {
+                question: "Menjaga keseimbangan antara hak dan kewajiban pribadi merupakan pengamalan sila ke...",
+                options: ["Sila Kedua", "Sila Kelima", "Sila Ketiga", "Sila Pertama"],
+                answer: 1,
+                explanation: "Keseimbangan hak dan kewajiban tercantum dalam Sila Kelima."
+            },
+            {
+                question: "Menghormati teman yang berbeda agama saat beribadah merupakan wujud Sila ke...",
+                options: ["Sila Pertama", "Sila Kedua", "Sila Ketiga", "Sila Keempat"],
+                answer: 0,
+                explanation: "Keimanan dan toleransi beragama adalah pengamalan Sila Pertama."
+            },
+            {
+                question: "Membantu teman yang mengalami musibah bencana alam tanpa membeda-bedakan suku dan ras adalah pengamalan Sila ke...",
+                options: ["Sila Pertama", "Sila Kedua", "Sila Ketiga", "Sila Kelima"],
+                answer: 1,
+                explanation: "Kepedulian dan persamaan derajat manusia adalah pengamalan Sila Kedua."
+            }
+        ];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+
+        function loadQuiz() {
+            if (currentQuizIndex < quizData.length) {
+                const q = quizData[currentQuizIndex];
+                document.getElementById('quiz-counter').textContent = `Soal ${currentQuizIndex + 1} dari ${quizData.length}`;
+                document.getElementById('quiz-question').textContent = q.question;
+                const optContainer = document.getElementById('quiz-options');
+                optContainer.innerHTML = '';
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full p-4 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 text-left text-sm font-semibold text-slate-800 transition flex items-center justify-between";
+                    btn.innerHTML = `<span>${opt}</span><i class="fa-regular fa-circle text-slate-400"></i>`;
+                    btn.onclick = () => selectQuizAnswer(idx);
+                    optContainer.appendChild(btn);
+                });
+                document.getElementById('quiz-feedback').classList.add('hidden');
+            } else {
+                document.getElementById('quiz-container').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+                const finalScore = (quizScore / quizData.length) * 100;
+                document.getElementById('final-score-display').textContent = finalScore + "%";
+                document.getElementById('quiz-badge-msg').textContent = finalScore >= 80 ? "Luar biasa! Penguasaan materi sangat sempurna." : "Bagus! Anda dapat membaca ulang materi untuk hasil lebih maksimal.";
+                if (finalScore >= 80) confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
+            }
+        }
+
+        function selectQuizAnswer(selectedIndex) {
+            const q = quizData[currentQuizIndex];
+            const fb = document.getElementById('quiz-feedback');
+            fb.classList.remove('hidden');
+            if (selectedIndex === q.answer) {
+                quizScore++;
+                fb.className = "p-4 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+                fb.innerHTML = `<i class="fa-solid fa-check-circle mr-1"></i> <strong>Benar!</strong> ${q.explanation}`;
+            } else {
+                fb.className = "p-4 rounded-xl text-sm font-medium bg-rose-50 text-rose-800 border border-rose-200";
+                fb.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> <strong>Kurang tepat.</strong> ${q.explanation}`;
+            }
+            setTimeout(() => {
+                currentQuizIndex++;
+                loadQuiz();
+            }, 1800);
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('quiz-result').classList.add('hidden');
+            loadQuiz();
+        }
+
+        function submitRefleksi() {
+            const val = document.getElementById('refleksi-input').value;
+            const fb = document.getElementById('refleksi-feedback');
+            fb.classList.remove('hidden');
+            fb.textContent = val.trim() ? "Terima kasih! Refleksi pribadi Anda telah disimpan." : "Silakan tuliskan refleksi singkat terlebih dahulu.";
+        }
+
+        function updateProgress(tabKey) {
+            completedTabs[tabKey] = true;
+            let count = Object.values(completedTabs).filter(Boolean).length;
+            let percent = Math.round((count / Object.keys(completedTabs).length) * 100);
+            
+            document.getElementById('progress-percentage').textContent = percent + "%";
+            document.getElementById('progress-bar-fill').style.width = percent + "%";
+
+            if (completedTabs.materi) unlockBadge('badge-materi', 'Master Sila 1-5');
+            if (completedTabs.game) unlockBadge('badge-game', 'Pilah Pintar');
+            if (completedTabs.kuis) unlockBadge('badge-kuis', 'Juara Kuis');
+            if (percent >= 90) {
+                unlockBadge('badge-sertifikat', 'Pancasila Sejati');
+                const certBtn = document.getElementById('cert-btn');
+                certBtn.disabled = false;
+                certBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+            document.getElementById('badge-count').textContent = document.querySelectorAll('.border-emerald-300').length;
+        }
+
+        function unlockBadge(elementId) {
+            const el = document.getElementById(elementId);
+            el.className = "p-4 rounded-2xl border bg-emerald-50 border-emerald-300 text-center space-y-2";
+            el.querySelector('div').className = "w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl mx-auto shadow";
+            el.querySelector('span').className = "text-[10px] text-emerald-700 font-semibold block";
+            el.querySelector('span').textContent = "Terbuka";
+        }
+
+        function generateCertificate() {
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.5 } });
+            alert("Sertifikat Kelulusan Modul Pendidikan Pancasila (Sila 1-5) berhasil dicetak! Selamat atas pencapaian luar biasa Anda.");
+        }
+
+        window.onload = function() {
+            loadQuiz();
+        };
+    </script>
+</body>
+</html>
